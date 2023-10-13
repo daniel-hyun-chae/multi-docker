@@ -1,0 +1,16 @@
+sudo: required
+
+services:
+  - docker
+
+before_install:
+  - docker build -t danielhyunchae/multi-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true danielhyunchae/multi-test npm test
+
+after-succes:
+  - docker build -t danielhyunchae/multi-client ./client
+  - docker build -t danielhyunchae/multi-nginx ./nginx
+  - docker build -t danielhyunchae/multi-server ./server
+  - docker build -t danielhyunchae/multi-worker ./worker
