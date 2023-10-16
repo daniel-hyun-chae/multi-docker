@@ -1,0 +1,35 @@
+{
+  "AWSEBDockerrunVersion": "2",
+  "containerDefinitions": [
+    {
+      "name": "client",
+      "image": "danielhyunchae/multip-client",
+      "hostname": "client",
+      "essential": false
+    },
+    {
+      "name": "server",
+      "image": "danielhyunchae/multip-server",
+      "hostname": "api",
+      "essential": false
+    },
+    {
+      "name": "worker",
+      "image": "danielhyunchae/multip-worker",
+      "hostname": "worker",
+      "essential": false
+    },
+    {
+      "name": "nginx",
+      "image": "danielhyunchae/multip-nginx",
+      "essential": true,
+      "portMappings": [
+        {
+          "hostPort": 80,
+          "containerPort": 80
+        }
+      ],
+      "links": ["client", "server"]
+    }
+  ]
+}

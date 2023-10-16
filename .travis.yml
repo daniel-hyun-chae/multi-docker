@@ -21,3 +21,16 @@ after-succes:
   - docker push danielhyunchae/multi-nginx
   - docker push danielhyunchae/multi-server
   - docker push danielhyunchae/multi-worker
+
+#Tell travis how to deploy our code to AWS
+deploy:
+  provider: elasticbeanstalk
+  region: "us-east-2"
+  app: "multi-docker"
+  env: "Multi-docker-env"
+  bucket-name: "elasticbeanstalk-us-east-2-829092469475"
+  bucket-path: "multi-docker"
+  on:
+    branch: main
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY
